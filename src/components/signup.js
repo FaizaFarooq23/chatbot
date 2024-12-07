@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdPerson } from "react-icons/md";
 import Link from "next/link";
-import SocialIcons from "./SubComponents/socialIcons";
 import { TbLockPassword } from "react-icons/tb";
 
 export default function Signup() {
@@ -38,7 +37,7 @@ export default function Signup() {
       <div className="max-w-md w-full mx-auto">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-y-8 bg-opacity-85 bg-white rounded-2xl p-6 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3)]"
+          className="flex flex-col gap-y-8 bg-opacity-85  bg-white rounded-2xl px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3)]"
         >
           {/* Header */}
           <div className="text-center">
@@ -117,9 +116,6 @@ export default function Signup() {
               </Link>
             </p>
           </div>
-
-          <hr className="border-gray-400" />
-          <SocialIcons/>
         </form>
       </div>
     </div>

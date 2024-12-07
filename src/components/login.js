@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoEyeOffOutline, IoEyeSharp } from "react-icons/io5";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
-import SocialIcons from "./SubComponents/socialIcons";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,8 +11,10 @@ export default function Login() {
     password: "",
     rememberMe: false,
   });
+  const router = useRouter();
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,7 +34,7 @@ export default function Login() {
       <div className="max-w-md w-full mx-auto">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-y-8 bg-opacity-85 bg-white rounded-2xl p-6 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3))]"
+          className="flex flex-col gap-y-8 bg-opacity-85 bg-white rounded-2xl px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3))]"
         >
           {/* Header */}
           <div className="text-center">
@@ -47,10 +49,10 @@ export default function Login() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="bg-transparent w-full text-sm out text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800 transition duration-300 "
+                className="bg-transparent w-full text-sm out text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800  "
                 placeholder="Enter email"
               />
-              <HiOutlineMail className="w-5 h-5 absolute right-2 text-gray-600 transition-transform duration-300 scale-90 hover:scale-100" />
+              <HiOutlineMail className="w-5 h-5 absolute right-2 text-gray-600" />
             </div>
 
             {/* Password Input */}
@@ -61,13 +63,13 @@ export default function Login() {
                 value={formData.password}
                 onChange={handleInputChange}
                 required
-                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800 transition duration-300 focus:scale-105 focus:ring-2 focus:ring-gray-800"
+                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800 "
                 placeholder="Enter password"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-2 text-gray-600 focus:outline-none transition-transform duration-300 hover:scale-125"
+                className="absolute right-2 text-gray-600 focus:outline-none transition-transform duration-300 scale-90 hover:scale-100"
               >
                 {showPassword ? (
                   <IoEyeOffOutline className="w-5 h-5" />
@@ -96,20 +98,21 @@ export default function Login() {
                 Remember me
               </label>
             </div>
-            <div>
+            {/* <div >
               <Link
                 href="/forgot-password"
                 className="text-blue-600 text-sm font-semibold hover:underline"
               >
                 Forgot Password?
               </Link>
-            </div>
+            </div> */}
           </div>
 
           {/* Submit Button and Register Link */}
           <div className="space-y-8">
             <button
-              type="submit"
+onClick={() => router.push('/dashboard')}
+              type="button"
               className="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-full text-white bg-gray-800  focus:outline-none transform transition duration-300 scale-90 hover:scale-100"
             >
               Sign in
@@ -125,9 +128,7 @@ export default function Login() {
             </p>
           </div>
 
-          {/* Divider and Social Icons */}
-          <hr className="border-gray-400" />
-          <SocialIcons />
+       
         </form>
       </div>
     </div>
