@@ -26,27 +26,28 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      alert("كلمات المرور غير متطابقة!");
       return;
     }
-    console.log("Form submitted:", formData);
+    console.log("تم إرسال النموذج:", formData);
   };
 
   return (
-    <div className='flex justify-center bg-[url("/image.png")] bg-no-repeat bg-cover items-center font-[sans-serif] h-full min-h-screen bg-gray-100 p-4'>
-      <div className="max-w-md w-full mx-auto">
+    <div className="flex justify-center items-center h-full gap-x-10 min-h-screen bg-gray-100 p-4">
+      <div className="max-w-sm w-full">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-y-8 bg-opacity-85  bg-white rounded-2xl px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3)]"
+          className="flex flex-col gap-y-8 bg-opacity-85 bg-white px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3)] text-right"
+          dir="rtl"
         >
           {/* Header */}
           <div className="text-center">
-            <h3 className="text-gray-800 text-3xl font-extrabold">Sign up</h3>
+            <h3 className="text-gray-800 text-3xl font-extrabold">تسجيل حساب</h3>
           </div>
           <div className="flex flex-col gap-4">
             {/* Name Input */}
             <div className="relative flex items-center">
-            <MdPerson />
+              <MdPerson />
               <input
                 name="name"
                 type="text"
@@ -54,13 +55,13 @@ export default function Signup() {
                 onChange={handleInputChange}
                 required
                 className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
-                placeholder="Enter name"
+                placeholder="أدخل الاسم"
               />
             </div>
 
             {/* Email Input */}
             <div className="relative flex items-center">
-                <HiOutlineMail />
+              <HiOutlineMail />
               <input
                 name="email"
                 type="email"
@@ -68,14 +69,13 @@ export default function Signup() {
                 onChange={handleInputChange}
                 required
                 className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
-                placeholder="Enter email"
+                placeholder="أدخل البريد الإلكتروني"
               />
             </div>
 
             {/* Password Input */}
-            <div className=" flex items-center">
-          <div>  <TbLockPassword className="" />
-          </div>
+            <div className="flex items-center ">
+          <div>   <TbLockPassword /></div> 
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
@@ -83,41 +83,40 @@ export default function Signup() {
                 onChange={handleInputChange}
                 required
                 className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
-                placeholder="Enter password"
+                placeholder="أدخل كلمة المرور"
               />
-            <input
+              <input
                 name="confirmPassword"
                 type={showPassword ? "text" : "password"}
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 required
-                className="bg-transparent w-full ml-6 text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
-                placeholder="Confirm password"
+                className="bg-transparent w-full mr-6 text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
+                placeholder="تأكيد كلمة المرور"
               />
-             
             </div>
-
           </div>
-           
-          <div className="space-y-8">
+
+          <div className="flex flex-col space-y-8">
             <button
               type="submit"
               className="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-full text-white bg-gray-800 transform transition duration-300 scale-90 hover:scale-100 focus:outline-none"
             >
-              Sign up
+              تسجيل
             </button>
-            <p className="text-gray-800 text-sm text-center">
-              Already have an account?
+            <p className="text-gray-800 text-sm ">
+              لديك حساب بالفعل؟
               <Link
-                href="/signin"
-                className="text-blue-600 font-semibold hover:underline ml-1"
+                href="/"
+                className="text-pepsi-blue font-semibold hover:underline ml-1"
               >
-                Sign in here
+                قم بتسجيل الدخول هنا
               </Link>
             </p>
           </div>
         </form>
       </div>
+      <div className='bg-pepsi-blue bg-[url("/looper.svg")] bg-no-repeat bg-contain bg-left rotate-180 max-w-md w-full h-[440px]'></div>
     </div>
   );
 }

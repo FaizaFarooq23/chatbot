@@ -15,7 +15,6 @@ export default function Login() {
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -30,46 +29,48 @@ export default function Login() {
   };
 
   return (
-    <div className='flex justify-center items-center bg-[url("/image.png")] bg-no-repeat bg-cover font-[sans-serif] h-full min-h-screen bg-gray-100 p-4'>
-      <div className="max-w-md w-full mx-auto">
+    <div className="flex justify-center items-center h-full min-h-screen bg-gray-100 gap-x-10 p-4">
+      <div className="max-w-sm w-full">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-y-8 bg-opacity-85 bg-white rounded-2xl px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3))]"
+          className="flex flex-col gap-y-8 bg-opacity-85 bg-white px-6 pt-6 pb-10 shadow-[0_2px_16px_-3px_rgba(173, 216, 230, 0.3))]"
         >
           {/* Header */}
           <div className="text-center">
-            <h3 className="text-gray-800 text-3xl font-extrabold">Sign in</h3>
+            <h3 className="text-gray-800 text-3xl font-extrabold">
+              تسجيل الدخول
+            </h3>
           </div>
           <div className="flex flex-col gap-y-4">
             {/* Email Input */}
-            <div className="relative flex items-center">
+            <div className="relative flex flex-row-reverse items-center">
               <input
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="bg-transparent w-full text-sm out text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800  "
-                placeholder="Enter email"
+                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none text-right placeholder:text-gray-800"
+                placeholder="أدخل البريد الإلكتروني"
               />
-              <HiOutlineMail className="w-5 h-5 absolute right-2 text-gray-600" />
+              <HiOutlineMail className="w-5 h-5 absolute left-2 text-gray-600" />
             </div>
 
             {/* Password Input */}
-            <div className="relative flex items-center">
+            <div className="relative flex flex-row-reverse items-center">
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
                 value={formData.password}
                 onChange={handleInputChange}
                 required
-                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800 "
-                placeholder="Enter password"
+                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none text-right placeholder:text-gray-800"
+                placeholder="أدخل كلمة المرور"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-2 text-gray-600 focus:outline-none transition-transform duration-300 scale-90 hover:scale-100"
+                className="absolute left-2 text-gray-600 focus:outline-none transition-transform duration-300 scale-90 hover:scale-100"
               >
                 {showPassword ? (
                   <IoEyeOffOutline className="w-5 h-5" />
@@ -81,8 +82,8 @@ export default function Login() {
           </div>
 
           {/* Remember Me and Forgot Password */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center">
+          <div className="flex flex-wrap items-center justify-end gap-4 text-right">
+            <div className="flex flex-row-reverse items-center">
               <input
                 id="remember-me"
                 name="rememberMe"
@@ -93,44 +94,35 @@ export default function Login() {
               />
               <label
                 htmlFor="remember-me"
-                className="ml-3 block text-sm text-gray-800"
+                className="mr-3 block text-sm text-gray-800"
               >
-                Remember me
+                تذكرني
               </label>
             </div>
-            {/* <div >
-              <Link
-                href="/forgot-password"
-                className="text-blue-600 text-sm font-semibold hover:underline"
-              >
-                Forgot Password?
-              </Link>
-            </div> */}
           </div>
 
           {/* Submit Button and Register Link */}
           <div className="space-y-8">
             <button
-onClick={() => router.push('/dashboard')}
+              onClick={() => router.push("/dashboard")}
               type="button"
-              className="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-full text-white bg-gray-800  focus:outline-none transform transition duration-300 scale-90 hover:scale-100"
+              className="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-full text-white bg-gray-800 focus:outline-none transform transition duration-300 scale-90 hover:scale-100"
             >
-              Sign in
+              تسجيل الدخول
             </button>
-            <p className="text-gray-800 text-sm text-center">
-              Don't have an account?
+            <p className="text-gray-800 text-sm text-right">
+              ليس لديك حساب؟
               <Link
-                href="/"
-                className="text-blue-600 font-semibold hover:underline ml-1"
+                href="/signup"
+                className="text-pepsi-blue font-semibold hover:underline mr-1"
               >
-                Register here
+                قم بالتسجيل هنا
               </Link>
             </p>
           </div>
-
-       
         </form>
       </div>
+      <div className='bg-pepsi-blue bg-[url("/looper.svg")] bg-no-repeat bg-contain bg-left rotate-180 max-w-md w-full h-[440px]'></div>
     </div>
   );
 }

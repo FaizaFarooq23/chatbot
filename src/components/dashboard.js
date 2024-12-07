@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
-import Sidebar from './sidebar'
+import React, { useState } from "react";
+import Pretest from "./preTest";
+import CardsScreen from "./cardsScreen";
 
 export default function Dashboard() {
-
-    const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showMainScreen, setShowMainScreen] = useState(false);
 
   return (
     <div>
-        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}/>
-    </div>
-  )
+      {showMainScreen ? (
+       <CardsScreen /> 
+      ) : (
+        <Pretest onComplete={() => setShowMainScreen(true)} />
+      )} 
+      </div>
+  );
 }
