@@ -1,45 +1,98 @@
 import React, { useState, useEffect } from "react";
-import QuestionCard from "./questionCard";
 import { pretestQuestions } from "@/data/CourseData";
+import { LuClock4 } from "react-icons/lu";
+import { Navigation } from "./navigation";
+import QuestionCard from "./questionCard";
+import { ProgressCircle } from "./progressCircle";
 
-export default function PreTest() {
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes timer (300 seconds)
-  const [isTimerActive, setIsTimerActive] = useState(true); // To control whether the timer is active
 
-  // Start the timer countdown
+
+export default function PreTest({handleSubmit}) {
+  const totalQuestions = pretestQuestions.length;
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState(
+    Array(totalQuestions).fill(null)
+  );
+  const [timeLeft, setTimeLeft] = useState(200);
+
+  // Timer effect
   useEffect(() => {
-    let interval;
+    if (timeLeft <= 0) return;
+    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
-    if (isTimerActive && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000);
+  const handleAnswer = (choice) => {
+    if (answers[currentQuestionIndex] === null) {
+      const updatedAnswers = [...answers];
+      updatedAnswers[currentQuestionIndex] = choice;
+      setAnswers(updatedAnswers);
+
+      if (currentQuestionIndex < totalQuestions - 1) {
+        setCurrentQuestionIndex((prev) => prev + 1);
+      }
     }
+  };
 
-    // Clear the interval when the time runs out or when the component unmounts
-    return () => clearInterval(interval);
-  }, [isTimerActive, timeLeft]);
+  const handleNavigate = (index) => {
+    if (index >= 0 && index < totalQuestions && timeLeft > 0) {
+      setCurrentQuestionIndex(index);
+    }
+  };
 
-  // Format time into MM:SS format
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
+
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center backdrop-blur bg-gradient-to-r from-[#5899E2] to-white overflow-hidden no-scrollbar">
-      <div className="flex flex-col  overflow-y-scroll no-scrollbar h-96 m-6 rounded-lg max-w-2xl w-full bg-white bg-opacity-40 ">
-      <div className="w-20 p-4 flex flex-col items-center justify-center text-white text-2xl font-semibold">
-          <div className="bg-pepsi-blue p-2 rounded-lg shadow-md">
-            {timeLeft > 0 ? formatTime(timeLeft) : "Time's Up"}
-          </div> </div>       <div className="flex-1 p-4">
-          <QuestionCard questions={pretestQuestions} showExplanation={false} />
+    <div className='flex flex-col justify-between max-w-2xl w-[800px] p-6 space-y-4 shadow-lg bg-white bg-[url("/looper.svg")] bg-left h-[400px] rounded-lg'>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-x-1">
+          <LuClock4 className="text-2xl leading-none" />
+          <div className="flex flex-col font-semibold">
+            <span className="text-gray-500 text-[10px] pt-1 leading-[9px] ">
+              Remaining Time
+            </span>
+            <span className="text-sm leading-5 font-bold">
+              {formatTime(timeLeft)}
+            </span>
+          </div>
         </div>
-        
-       </div>
+        {answers.every((answer) => answer !== null) && (
+          <button
+            onClick={handleSubmit}
+            disabled={timeLeft <= 0}
+            className="bg-gradient-to-r from-[#5899E2] to-pepsi-blue duration-300 transition-colors hover:from-pepsi-blue hover:to-[#5899E2] cursor-pointer text-white px-4 py-2 text-sm rounded-md font-bold"
+          >
+            Submit Test
+          </button>
+        )}
+      </div>
+
+      <div className="flex items-center gap-4">
+        <ProgressCircle
+          currentIndex={answers.filter((answer) => answer !== null).length}
+          totalQuestions={totalQuestions}
+        />
+
+        <QuestionCard
+          questions={[pretestQuestions[currentQuestionIndex]]}
+          selectedAnswer={answers[currentQuestionIndex]}
+          handleAnswer={handleAnswer}
+          showExplanation={false}
+        />
+      </div>
+<div>
+      <Navigation
+        totalQuestions={totalQuestions}
+        currentIndex={currentQuestionIndex}
+        answeredQuestions={answers.map((answer) => answer !== null)}
+        onNavigate={handleNavigate}
+      /></div>
     </div>
   );
 }

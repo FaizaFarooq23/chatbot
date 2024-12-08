@@ -25,7 +25,7 @@ export default function CardsScreen() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center  min-h-screen bg-gradient-to-r from-[#5899E2] to-white">
+    <div className="flex flex-col items-center justify-center w-screen">
       <div className="flex flex-col items-center justify-center gap-y-4">
         <div className="bg-pepsi-blue p-3 rounded-lg">
           <MdWavingHand className="text-3xl text-white" />
