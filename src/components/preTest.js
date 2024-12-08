@@ -15,7 +15,6 @@ export default function PreTest({handleSubmit}) {
   );
   const [timeLeft, setTimeLeft] = useState(200);
 
-  // Timer effect
   useEffect(() => {
     if (timeLeft <= 0) return;
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
